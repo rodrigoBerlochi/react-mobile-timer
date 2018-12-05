@@ -4,7 +4,8 @@ import { Text, StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
     bigNumber: {
-        fontSize: 90
+        fontSize: 90,
+        color: '#fff'
     }
 });
 
@@ -17,7 +18,7 @@ const Counter = ({count}) => {
 }
 
 Counter.propTypes = {
-    count: PropTypes.number.isRequired
+    count: PropTypes.string.isRequired
 }
 
 export default Counter;
