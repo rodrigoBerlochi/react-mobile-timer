@@ -10,9 +10,9 @@ export default class App extends React.Component {
   constructor () {
     super();
 
-    this.longCycle = 25 * 60;
+    this.longCycle = 2 * 60;
 
-    this.shortCycle = 5 * 60;
+    this.shortCycle = 1 * 60;
 
     this.state = {
       count: this.longCycle,
@@ -26,12 +26,23 @@ export default class App extends React.Component {
 
       this.setState(
         (prevState) => {
+
           let nextTime = --prevState.count;
+          let nextCycle = prevState.isLongCycle;
 
-          nextTime = nextTime === 0 ? this.shortCycle : nextTime;
+          // we reach zero when any cycle ended
+          // and it is time to switch
+          if (nextTime === 0) {
+            // set time and type for next cycle
+            if (prevState.isLongCycle) {
+              nextTime = this.shortCycle; // seconds
+              nextCycle = false; // type
+            } else {
+              nextTime = this.longCycle;
+              nextCycle = true;
+            }
+          }
           
-          const nextCycle = (nextTime === 0) ? !prevState.isLongCycle : prevState.isLongCycle;
-
           return { count:  nextTime, isLongCycle: nextCycle }
         }
       );
